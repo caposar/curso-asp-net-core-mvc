@@ -1,4 +1,5 @@
 using ManejoPresupuesto.Servicios;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +8,19 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRepositorioTiposCuentas, RepositorioTiposCuentas>();
 builder.Services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
 builder.Services.AddTransient<IRepositorioCuentas, RepositorioCuentas>();
+builder.Services.AddTransient<IRepositorioCategorias, RepositorioCategorias>();
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddLocalization();
+
 var app = builder.Build();
+
+// por defecto, el validador de jQuery espera el formato "###.##" y no "###,##".
+// Opocion 1: Forzando el punto
+app.UseRequestLocalization(opciones =>
+{
+    opciones.DefaultRequestCulture = new RequestCulture("es-DO");
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
