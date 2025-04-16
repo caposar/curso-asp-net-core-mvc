@@ -10,9 +10,13 @@
 }
 
 .activo {
-    color: blue;
+    color: blue !important;
 }
 
 .pasivo {
-    color: red;
+    color: red !important;
+}
+
+.estilo-fila > td, .estilo-fila > th {
+    background-color: lightblue;
 }
