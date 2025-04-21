@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManejoPresupuesto.Controllers
 {
