@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,10 +52,13 @@ builder.Services.AddLocalization();
 var app = builder.Build();
 
 // por defecto, el validador de jQuery espera el formato "###.##" y no "###,##".
-// Opocion 1: Forzando el punto
+// Opcion 1: Forzando el punto
+var cultura = new CultureInfo("es-DO");
+cultura.NumberFormat.NumberDecimalDigits = 2;
+
 app.UseRequestLocalization(opciones =>
 {
-    opciones.DefaultRequestCulture = new RequestCulture("es-DO");
+    opciones.DefaultRequestCulture = new RequestCulture(cultura);
 });
 
 // Configure the HTTP request pipeline.
