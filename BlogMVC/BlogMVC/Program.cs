@@ -1,7 +1,29 @@
+using BlogMVC.Datos;
+using BlogMVC.Entidades;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContextFactory<ApplicationDbContext>(opciones =>
+opciones.UseSqlServer("name=DefaultConnection"));
+
+builder.Services.AddIdentity<Usuario, IdentityRole>(opciones =>
+{
+    opciones.SignIn.RequireConfirmedAccount = false;
+}).AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
+    opciones =>
+    {
+        opciones.LoginPath = "/usuarios/login";
+        opciones.AccessDeniedPath = "/usuarios/login";
+    });
 
 var app = builder.Build();
 
