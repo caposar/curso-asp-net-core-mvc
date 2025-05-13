@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddServerSideBlazor();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -54,5 +56,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+app.MapBlazorHub();
 
 app.Run();

@@ -31,7 +31,7 @@ namespace BlogMVC.Controllers
             var entrada = await context.Entradas
                 .IgnoreQueryFilters()
                 .Include(x => x.UsuarioCreacion)
-                .Include(x => x.Comentarios)
+                .Include(x => x.Comentarios.Where(c => !c.Borrado))
                     .ThenInclude(x => x.Usuario)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
